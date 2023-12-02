@@ -20,16 +20,21 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
        // launch();
 
-        String readerName = new String("");
+        String readerName = new String("input.txt");
+        String writerName = new String("output.txt");
+
+        Decider decider = new Decider();
+        decider.makeDecision(readerName, writerName);
+
+
         Reader reader = new Reader(readerName);
-        Finder finder = new Finder(reader);
+        Finder finder = new Finder();
         finder.find(reader);
         Calculator calculator = new Calculator();
         Result result = calculator.calculate(finder);
 
         Replacer replacer = new Replacer();
 
-        String writerName = new String("");
 
 
         Writer writer = new Writer(writerName);
