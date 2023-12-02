@@ -7,4 +7,7 @@ public class Reader {
         fileName = this.fileName;
     }
 
+    public void read() {
+        return;
+    }
 }

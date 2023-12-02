@@ -21,12 +21,16 @@ public class HelloApplication extends Application {
        //launch();
 
         String readerName = new String("");
+
+
         Reader reader = new Reader(readerName);
+        reader.read();
         Calculator calculator = new Calculator();
         Result result = calculator.calculate(reader);
 
         String writerName = new String("");
         Writer writer = new Writer(writerName);
         writer.write(result);
+        System.exit(0);
     }
 }
