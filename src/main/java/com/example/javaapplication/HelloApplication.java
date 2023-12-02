@@ -18,15 +18,22 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-       //launch();
+       // launch();
 
         String readerName = new String("");
         Reader reader = new Reader(readerName);
+        Finder finder = new Finder(reader);
+        finder.find(reader);
         Calculator calculator = new Calculator();
-        Result result = calculator.calculate(reader);
+        Result result = calculator.calculate(finder);
+
+        Replacer replacer = new Replacer();
 
         String writerName = new String("");
+
+
         Writer writer = new Writer(writerName);
-        writer.write(result);
+        writer.write(replacer);
+        System.exit(0);
     }
 }

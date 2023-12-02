@@ -1,5 +1,7 @@
 package com.example.javaapplication;
 
-public class Result {
+import java.util.ArrayList;
 
+public class Result {
+    ArrayList<Double> resultList = new ArrayList<>();
 }
