@@ -1,8 +1,9 @@
 package com.example.javaapplication;
 
 public class Calculator {
-    public Result calculate(Reader reader)
+
+    public void calculate(Result result)
     {
-        return new Result();
+
     }
 }

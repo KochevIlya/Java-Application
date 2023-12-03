@@ -8,8 +8,6 @@ public class Writer {
     }
     public void write(Result result)
     {
-        return;
+           return;
     }
-
-
 }
