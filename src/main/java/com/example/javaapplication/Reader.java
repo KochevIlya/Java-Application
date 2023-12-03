@@ -5,9 +5,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 
 public class Reader {
@@ -41,8 +45,29 @@ public class Reader {
                 }
                 break;
             case(2):
+                try {
+                    ObjectMapper jsonmapper = new ObjectMapper();
+                    JsonNode jsonnode = jsonmapper.readTree(new File(fileName));
+                    XmlMapper xmlmapper = new XmlMapper();
+                    xmlmapper.enable(ToXmlGenerator.Feature.UNWRAP_ROOT_OBJECT_NODE);
+                    String xmlstring = xmlmapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonnode);
+                    result.setInputText(xmlstring);
+                } catch (IOException a) {
+                    a.printStackTrace();
+                }
                 break;
             default:
+                List<String> lines = null;
+                try {
+                    lines = Files.readAllLines(Paths.get(fileName));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                StringBuilder content = new StringBuilder();
+                for (String line : lines) {
+                    content.append(line).append(System.lineSeparator());
+                }
+                result.setInputText(content.toString());
                 break;
         }
         return;
