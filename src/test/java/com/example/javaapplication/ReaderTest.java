@@ -47,7 +47,7 @@ public class ReaderTest {
                 </Cities>
                 """);
         reader.read(result);
-        assertEquals(expected, result.getInputText());
+        assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ReaderTest {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean accumsan placerat massa ac aliquam. Integer justo enim, aliquam sed quam sit amet, rhoncus pretium nunc. Aliquam vestibulum ac dolor accumsan ultrices. Aliquam dapibus eros dolor, a pulvinar nisl accumsan nec. Donec fermentum fermentum nulla. Curabitur faucibus scelerisque lobortis. Sed ultricies elit vitae augue pellentesque, non porta eros accumsan. Suspendisse vel libero posuere, viverra metus sit amet, dapibus eros. Nam sit amet condimentum libero. Vivamus eget mollis orci. Aenean sagittis nisl commodo iaculis scelerisque. Pellentesque pharetra pulvinar consequat. Ut eu risus feugiat, placerat ante ut, placerat felis. Sed odio ligula, convallis ac lobortis vitae, imperdiet eu nulla.
                 """);
         reader.read(result);
-        assertEquals(expected, result.getInputText());
+        assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
     }
     @Test
     public void StandartReadTestJson() {
@@ -93,7 +93,7 @@ public class ReaderTest {
                 }
                 """);
         reader.read(result);
-        assertEquals(expected, result.getInputText());
+        assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
     }
     @Test
     public void StandartReadTestXml() {
@@ -119,7 +119,7 @@ public class ReaderTest {
                 </root>
                 """);
         reader.read(result);
-        assertEquals(expected, result.getInputText());
+        assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
     }
 }
 

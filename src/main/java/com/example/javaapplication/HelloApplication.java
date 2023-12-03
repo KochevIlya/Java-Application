@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
        // launch();
 
-        String readerName = new String("input.txt");
+        String readerName = new String("input1.xml");
         String writerName = new String("output.txt");
 
         Result result = new Result();

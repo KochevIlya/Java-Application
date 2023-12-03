@@ -54,7 +54,4 @@ build/
 *.ear
 *.tar.gz
 
-*.txt
-*.json
-output.xml
-outputFromTxt.xml
+output*
