@@ -28,6 +28,7 @@ public class HelloApplication extends Application {
         Decider decider = new Decider();
         decider.makeDecision(readerName, writerName, result);
 
+
         Reader reader = new Reader(readerName);
         reader.read(result);
 

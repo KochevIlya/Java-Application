@@ -1,0 +1,12 @@
+{
+    "Cities": {
+        "city": [{
+          "name": "Minsk",
+          "country": "Belarus"
+        },
+        {
+          "name": "Moscow",
+          "country": "Russia"
+        }]
+    }
+}
