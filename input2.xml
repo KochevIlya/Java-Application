@@ -1,0 +1,11 @@
+<Cities>
+    <city>
+        <name>Minsk</name>
+        <country>Belarus</country>
+    </city>
+    <city>
+        <name>Moscow</name>
+        <country>Russia</country>
+    </city>
+
+</Cities>
