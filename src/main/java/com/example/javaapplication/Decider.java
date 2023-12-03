@@ -3,13 +3,12 @@ package com.example.javaapplication;
 import java.util.regex.PatternSyntaxException;
 
 public class Decider {
-    private int decision;
 
-    public void makeDecision(String inputName, String outputName) throws ArrayIndexOutOfBoundsException{
+    public void makeDecision(String inputName, String outputName, Result result) throws ArrayIndexOutOfBoundsException{
         try {
             String[] parsedInput = inputName.split("\\.");
             String[] parsedOutput = outputName.split("\\.");
-
+            int decision;
             if(parsedOutput.length > 2 || parsedInput.length > 2)
             {
                 throw new ArrayIndexOutOfBoundsException();
@@ -55,7 +54,7 @@ public class Decider {
                 default:
                     throw new PatternSyntaxException("","",0);
             }
-
+            result.setDecision(decision);
         }
         catch(ArrayIndexOutOfBoundsException e)
         {
@@ -67,13 +66,5 @@ public class Decider {
             System.out.println("Wrong extension in input or output file name");
             throw e;
         }
-    }
-
-    public int getDecision() {
-        return decision;
-    }
-
-    public void setDecision(int decision) {
-        this.decision = decision;
     }
 }

@@ -15,7 +15,8 @@ public class Reader {
     {
         fileName = this.fileName;
     }
-    public void read() {
+    public void read(Result result)
+    {
         return;
     }
 

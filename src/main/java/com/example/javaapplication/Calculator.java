@@ -2,8 +2,8 @@ package com.example.javaapplication;
 
 public class Calculator {
 
-    public Result calculate(Finder finder)
+    public void calculate(Result result)
     {
-        return new Result();
+
     }
 }

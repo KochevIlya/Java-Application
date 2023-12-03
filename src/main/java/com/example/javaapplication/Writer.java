@@ -6,7 +6,7 @@ public class Writer {
     {
         fileName = this.fileName;
     }
-    public void write(Replacer replacer)
+    public void write(Result result)
     {
            return;
     }

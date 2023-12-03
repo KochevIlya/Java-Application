@@ -23,22 +23,25 @@ public class HelloApplication extends Application {
         String readerName = new String("input.txt");
         String writerName = new String("output.txt");
 
-        Decider decider = new Decider();
-        decider.makeDecision(readerName, writerName);
+        Result result = new Result();
 
+        Decider decider = new Decider();
+        decider.makeDecision(readerName, writerName, result);
 
         Reader reader = new Reader(readerName);
+        reader.read(result);
+
         Finder finder = new Finder();
-        finder.find(reader);
+        finder.find(result);
+
         Calculator calculator = new Calculator();
-        Result result = calculator.calculate(finder);
+        calculator.calculate(result);
 
         Replacer replacer = new Replacer();
-
-
+        replacer.replace(result);
 
         Writer writer = new Writer(writerName);
-        writer.write(replacer);
+        writer.write(result);
         System.exit(0);
     }
 }

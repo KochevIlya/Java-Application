@@ -2,7 +2,7 @@ package com.example.javaapplication;
 
 public class Replacer {
 
-    public void replace(Reader reader, Finder finder, Result result)
+    public void replace(Result result)
     {
         return;
     }
