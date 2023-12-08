@@ -4,7 +4,7 @@ import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import java.util.ArrayList;
 
-public class APICalculator implements CalculatorImplementation{
+public class APICalculator implements ICalculator{
     @Override
     public void calculate(Result result)
     {

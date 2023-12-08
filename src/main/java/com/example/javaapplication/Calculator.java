@@ -2,14 +2,14 @@ package com.example.javaapplication;
 import utilities.*;
 public class Calculator {
 
-    private final CalculatorImplementation calculatorImplementation;
+    private final ICalculator iCalculator;
     public void calculate(Result result)
     {
-        calculatorImplementation.calculate(result);
+        iCalculator.calculate(result);
     }
     public Calculator()
     {
-        calculatorImplementation = new APICalculator();
+        iCalculator = new APICalculator();
     }
 
 }
