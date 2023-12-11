@@ -8,6 +8,8 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -59,6 +61,10 @@ public class Reader {
                     a.printStackTrace();
                     System.exit(0);
                 }
+                break;
+            case(6):
+                break;
+            case(7):
                 break;
             default:
                 List<String> lines = null;
