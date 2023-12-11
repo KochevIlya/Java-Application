@@ -23,7 +23,6 @@ public class HelloApplication extends Application {
         String writerName = new String("output.txt");
 
         Result result = new Result();
-
 try {
     Decider decider = new Decider();
     decider.makeDecision(readerName, writerName, result);
