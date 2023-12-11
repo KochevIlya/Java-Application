@@ -25,7 +25,6 @@ public class ReaderTest {
                 "}");
         reader.read(result);
         assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
-
     }
 
 
@@ -49,7 +48,6 @@ public class ReaderTest {
                 """);
         reader.read(result);
         assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
-
     }
 
     @Test
@@ -63,7 +61,6 @@ public class ReaderTest {
                 """);
         reader.read(result);
         assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
-
     }
     @Test
     public void StandartReadTestJson() {
@@ -97,7 +94,6 @@ public class ReaderTest {
                 """);
         reader.read(result);
         assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
-
     }
     @Test
     public void StandartReadTestXml() {
@@ -124,7 +120,6 @@ public class ReaderTest {
                 """);
         reader.read(result);
         assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
-
     }
 }
 
