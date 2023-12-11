@@ -16,26 +16,35 @@ public class HelloApplication extends Application {
 //        stage.setScene(scene);
 //        stage.show();
     }
-
     public static void main(String[] args) {
        // launch();
 
-        String readerName = new String("input.txt");
+        String readerName = new String("input1.xml");
         String writerName = new String("output.txt");
 
         Result result = new Result();
 
-        Decider decider = new Decider();
-        decider.makeDecision(readerName, writerName, result);
+try {
+    Decider decider = new Decider();
+    decider.makeDecision(readerName, writerName, result);
+}
+catch(Exception e)
+{
+    System.exit(0);
+}
         Reader reader = new Reader(readerName);
         reader.read(result);
 
         Finder finder = new Finder();
         finder.find(result);
-
-        Calculator calculator = new Calculator();
-        calculator.calculate(result);
-
+try {
+    Calculator calculator = new Calculator();
+    calculator.calculate(result);
+}
+catch(Exception e)
+{
+    System.exit(0);
+}
         Replacer replacer = new Replacer();
         replacer.replace(result);
 
