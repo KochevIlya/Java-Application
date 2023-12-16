@@ -10,6 +10,36 @@ public class Result {
     private String replacedText;
     private int decision;
 
+    public boolean isShouldArchive() {
+        return shouldArchive;
+    }
+
+    public void setShouldArchive(boolean shouldArchive) {
+        this.shouldArchive = shouldArchive;
+    }
+
+    private boolean shouldEncrypt;
+    private boolean shouldArchive;
+
+    private String encryptedKey;
+
+    public String getEncryptedKey() {
+        return encryptedKey;
+    }
+
+    public void setEncryptedKey(String encryptedKey) {
+        this.encryptedKey = encryptedKey;
+    }
+
+
+    public boolean isShouldEncrypt() {
+        return shouldEncrypt;
+    }
+
+    public void setShouldEncrypt(boolean shouldEncrypt) {
+        this.shouldEncrypt = shouldEncrypt;
+    }
+
     public ArrayList<Double> getResultList() {
         return resultList;
     }

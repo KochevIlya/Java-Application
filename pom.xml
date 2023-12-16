@@ -66,7 +66,7 @@
         <dependency>
             <groupId>net.objecthunter</groupId>
             <artifactId>exp4j</artifactId>
-            <version>0.4.8</version> <!-- Уточните версию в соответствии с актуальной -->
+            <version>0.4.8</version>
         </dependency>
         <dependency>
             <groupId>com.dlsc.formsfx</groupId>
@@ -91,7 +91,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

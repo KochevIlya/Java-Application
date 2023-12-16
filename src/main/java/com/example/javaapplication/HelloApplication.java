@@ -26,6 +26,7 @@ public class HelloApplication extends Application {
 try {
     Decider decider = new Decider();
     decider.makeDecision(readerName, writerName, result);
+    result.setShouldEncrypt(true);
 }
 catch(Exception e)
 {
