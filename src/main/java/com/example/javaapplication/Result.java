@@ -9,6 +9,19 @@ public class Result {
     private String inputText;
     private String replacedText;
     private int decision;
+    private boolean shouldEncrypt;
+    private boolean shouldArchive;
+    private String encryptedKey;
+
+    private boolean isFirstEncrypt;
+
+    public boolean isFirstEncrypt() {
+        return isFirstEncrypt;
+    }
+
+    public void setFirstEncrypt(boolean firstEncrypt) {
+        isFirstEncrypt = firstEncrypt;
+    }
 
     public boolean isShouldArchive() {
         return shouldArchive;
@@ -18,10 +31,7 @@ public class Result {
         this.shouldArchive = shouldArchive;
     }
 
-    private boolean shouldEncrypt;
-    private boolean shouldArchive;
 
-    private String encryptedKey;
 
     public String getEncryptedKey() {
         return encryptedKey;

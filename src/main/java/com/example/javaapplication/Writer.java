@@ -1,14 +1,18 @@
 package com.example.javaapplication;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.Key;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 class WriterException extends Throwable {
 
@@ -55,6 +59,64 @@ public class Writer {
         str += "</root>";
         return str;
     }
+    public String encryptData(Result result)
+    {
+        String originalString = result.getReplacedText();
+        try {
+            Cipher cipher = Cipher.getInstance("AES");
+
+            if(result.getEncryptedKey() == null) {
+                System.out.println("Ваш ключ шифрования: SunnyDayHome1234\n Запомните его!!!");
+                result.setEncryptedKey("SunnyDayHome1234");
+            }
+            SecretKeySpec secretKey;
+            secretKey = new SecretKeySpec(result.getEncryptedKey().getBytes(), "AES");
+
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            byte[] encryptedBytes;
+            if(result.isFirstEncrypt())
+                encryptedBytes = cipher.doFinal(originalString.getBytes(), 0,    originalString.length());
+            else
+                encryptedBytes = cipher.doFinal(Base64.getDecoder().decode(originalString));
+            String[] newFileNameChar = fileName.split("\\.");
+            fileName = newFileNameChar[0] + ".enc";
+            return Base64.getEncoder().encodeToString(encryptedBytes);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public String archiveDataZipAfter(Result result)
+    {
+        String[] zipFile = fileName.split("\\.");
+        fileName = zipFile[0] + ".zip";
+        String originalData = result.getReplacedText();
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             ZipOutputStream zos = new ZipOutputStream(baos)) {
+
+            ZipEntry entry = new ZipEntry("data");
+            zos.putNextEntry(entry);
+            byte[] bytes;
+            if(result.isFirstEncrypt())
+                bytes = Base64.getDecoder().decode(originalData);
+
+            else
+                bytes = originalData.getBytes();
+
+            zos.write(bytes, 0, bytes.length);
+            zos.closeEntry();
+            zos.finish();
+            byte[] encryptedBytes = baos.toByteArray();
+            String resultStr;
+            resultStr = Base64.getEncoder().encodeToString(encryptedBytes);
+            return resultStr;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     public Writer(String fileName)
@@ -62,9 +124,11 @@ public class Writer {
         setFileName(fileName);
     }
     public void write(Result result)  {
-        try {
-            int decision = result.getDecision();
 
+        try
+        {
+            FileWriter fileWriter = new FileWriter(fileName);
+            int decision = result.getDecision();
             if(result.getDecision() <1 || result.getDecision() > 5)
                 throw new WriterException();
 
@@ -74,49 +138,69 @@ public class Writer {
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    if(result.isShouldEncrypt())
-                    {
-                        result.setReplacedText(writeToJson(result));
-                        this.encryptData(result);
-                        return;
+                    result.setReplacedText(writeToJson(result));
+
+                    if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
+                        result.setReplacedText(this.encryptData(result));
+                        result.setReplacedText(this.archiveDataZipAfter(result));
                     }
-                    else {
-                        FileWriter fileWriter = new FileWriter(fileName);
-                        fileWriter.write(writeToJson(result));
-                        fileWriter.close();
+                    else if(result.isShouldEncrypt() && result.isShouldArchive()) {
+                        result.setReplacedText(this.archiveDataZipAfter(result));
+                        result.setReplacedText(this.encryptData(result));
                     }
+                    else if(result.isShouldEncrypt())
+                        result.setReplacedText(this.encryptData(result));
+                    else if(result.isShouldArchive())
+                        result.setReplacedText(this.archiveDataZipAfter(result));
+
+                    fileWriter.write(result.getReplacedText());
+                    fileWriter.close();
                     break;
 
                 case 5:
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    if(result.isShouldEncrypt())
-                    {
-                        result.setReplacedText(writeToXml(result));
-                        this.encryptData(result);
-                        return;
+                    result.setReplacedText(writeToXml(result));
+
+                    if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
+                        result.setReplacedText(this.encryptData(result));
+                        result.setReplacedText(this.archiveDataZipAfter(result));
                     }
-                    else {
-                        FileWriter fileWriter = new FileWriter(fileName);
-                        fileWriter.write(writeToXml(result));
-                        fileWriter.close();
+                    else if(result.isShouldEncrypt() && result.isShouldArchive()) {
+                        result.setReplacedText(this.archiveDataZipAfter(result));
+                        result.setReplacedText(this.encryptData(result));
                     }
+                    else if(result.isShouldEncrypt())
+                        result.setReplacedText(this.encryptData(result));
+                    else if(result.isShouldArchive())
+                        result.setReplacedText(this.archiveDataZipAfter(result));
+
+                    fileWriter.write(result.getReplacedText());
+                    fileWriter.close();
                     break;
 
                 default:
                     if(result.getReplacedText() == null)
                         throw new WriterException();
 
-                    if(result.isShouldEncrypt()) {
-                        this.encryptData(result);
-                        return;
+                    if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
+                        result.setReplacedText(this.encryptData(result));
+                        result.setReplacedText(this.archiveDataZipAfter(result));
                     }
-                    else {
-                        FileWriter fileWriter = new FileWriter(fileName);
-                        fileWriter.write(result.getReplacedText().trim());
-                        fileWriter.close();
+                    else if(result.isShouldEncrypt() && result.isShouldArchive()) {
+                        result.setReplacedText(this.archiveDataZipAfter(result));
+                        result.setReplacedText(this.encryptData(result));
                     }
+                    else if(result.isShouldEncrypt())
+                        result.setReplacedText(this.encryptData(result));
+
+                    else if(result.isShouldArchive())
+                        result.setReplacedText(this.archiveDataZipAfter(result));
+
+                    fileWriter.write(result.getReplacedText().trim());
+                    fileWriter.close();
+
                     break;
             }
         }
@@ -131,32 +215,5 @@ public class Writer {
             System.exit(0);
         }
     }
-    public void encryptData(Result result)
-    {
-        String originalString = result.getReplacedText();
-        try {
-            // Получите экземпляр Cipher с установленным режимом шифрования и ключом
-            Cipher cipher = Cipher.getInstance("AES");
 
-            if(result.getEncryptedKey() == null) {
-                System.out.println("Ваш ключ шифрования: SunnyDayHome1234\n Запомните его!!!");
-                result.setEncryptedKey("SunnyDayHome1234");
-            }
-            SecretKeySpec secretKey = new SecretKeySpec(result.getEncryptedKey().getBytes(), "AES");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-
-            byte[] encryptedBytes = cipher.doFinal(originalString.getBytes(), 0,    originalString.length());
-
-            // Записать зашифрованные данные в файл с использованием FileWriter
-            try {
-                Files.write(Paths.get(fileName), encryptedBytes);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
