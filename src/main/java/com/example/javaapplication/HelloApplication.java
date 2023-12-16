@@ -26,6 +26,7 @@ public class HelloApplication extends Application {
 try {
     Decider decider = new Decider();
     decider.makeDecision(readerName, writerName, result);
+    result.setShouldEncrypt(true);
 }
 catch(Exception e)
 {
@@ -47,6 +48,9 @@ catch(Exception e)
         Replacer replacer = new Replacer();
         replacer.replace(result);
 
+        result.setFirstEncrypt(true);
+        result.setShouldArchive(true);
+        result.setShouldEncrypt(true);
         Writer writer = new Writer(writerName);
         writer.write(result);
         System.exit(0);

@@ -9,6 +9,46 @@ public class Result {
     private String inputText;
     private String replacedText;
     private int decision;
+    private boolean shouldEncrypt;
+    private boolean shouldArchive;
+    private String encryptedKey;
+
+    private boolean isFirstEncrypt;
+
+    public boolean isFirstEncrypt() {
+        return isFirstEncrypt;
+    }
+
+    public void setFirstEncrypt(boolean firstEncrypt) {
+        isFirstEncrypt = firstEncrypt;
+    }
+
+    public boolean isShouldArchive() {
+        return shouldArchive;
+    }
+
+    public void setShouldArchive(boolean shouldArchive) {
+        this.shouldArchive = shouldArchive;
+    }
+
+
+
+    public String getEncryptedKey() {
+        return encryptedKey;
+    }
+
+    public void setEncryptedKey(String encryptedKey) {
+        this.encryptedKey = encryptedKey;
+    }
+
+
+    public boolean isShouldEncrypt() {
+        return shouldEncrypt;
+    }
+
+    public void setShouldEncrypt(boolean shouldEncrypt) {
+        this.shouldEncrypt = shouldEncrypt;
+    }
 
     public ArrayList<Double> getResultList() {
         return resultList;
