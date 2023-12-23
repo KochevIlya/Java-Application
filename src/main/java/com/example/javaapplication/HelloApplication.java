@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -16,10 +17,10 @@ public class HelloApplication extends Application {
 //        stage.setScene(scene);
 //        stage.show();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, JAXBException {
        // launch();
 
-        String readerName = new String("input1.xml");
+        String readerName = new String("input.xml");
         String writerName = new String("output.txt");
 
         Result result = new Result();
@@ -33,10 +34,11 @@ catch(Exception e)
     System.exit(0);
 }
         Reader reader = new Reader(readerName);
-        reader.read(result);
+        //reader.read(result);
+        reader.readV2(result);
 
         Finder finder = new Finder();
-        finder.find(result);
+        finder.findV2(result, readerName);
 try {
     Calculator calculator = new Calculator();
     calculator.calculate(result);
