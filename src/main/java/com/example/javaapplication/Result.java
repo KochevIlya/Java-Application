@@ -97,4 +97,9 @@ public class Result {
     public void setDecision(int decision) {
         this.decision = decision;
     }
+
+    public Double getResultByIndex (int index) {return resultList.get(index); }
+
+    public Duration getDurationByIndex (int index) {return positionsList.get(index); }
+
 }
