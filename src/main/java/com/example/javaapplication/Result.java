@@ -12,7 +12,6 @@ public class Result {
     private boolean shouldEncrypt;
     private boolean shouldArchive;
     private String encryptedKey;
-
     private boolean isFirstEncrypt;
 
     public boolean isFirstEncrypt() {

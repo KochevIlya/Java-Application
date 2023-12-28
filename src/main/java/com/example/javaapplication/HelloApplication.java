@@ -1,58 +1,1 @@
-package com.example.javaapplication;
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
-public class HelloApplication extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
-    }
-    public static void main(String[] args) {
-       // launch();
-
-        String readerName = new String("input1.xml");
-        String writerName = new String("output.txt");
-
-        Result result = new Result();
-try {
-    Decider decider = new Decider();
-    decider.makeDecision(readerName, writerName, result);
-    result.setShouldEncrypt(true);
-}
-catch(Exception e)
-{
-    System.exit(0);
-}
-        Reader reader = new Reader(readerName);
-        reader.read(result);
-
-        Finder finder = new Finder();
-        finder.find(result);
-try {
-    Calculator calculator = new Calculator();
-    calculator.calculate(result);
-}
-catch(Exception e)
-{
-    System.exit(0);
-}
-        Replacer replacer = new Replacer();
-        replacer.replace(result);
-
-        result.setFirstEncrypt(true);
-        result.setShouldArchive(true);
-        result.setShouldEncrypt(true);
-        Writer writer = new Writer(writerName);
-        writer.write(result);
-        System.exit(0);
-    }
-}
+package com.example.javaapplication;import javafx.application.Application;import javafx.fxml.FXMLLoader;import javafx.scene.Scene;import javafx.stage.Stage;import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;import java.util.Objects;import java.util.Timer;public class HelloApplication extends Application {    @Override    public void start(Stage stage) throws IOException {//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);//        stage.setTitle("Hello!");//        stage.setScene(scene);//        stage.show();    }    public static void main(String[] args) {        // launch();        System.out.println("Добрый день, сэр! Готов к работе, сэр");        char ch = 0;        do {            System.out.println("Введите имя входного файла, например(input.txt): ");            InputStreamReader isr = new InputStreamReader(System.in);            BufferedReader br = new BufferedReader(isr);            String readerName;            String writerName;            Result result = new Result();            try {                readerName = br.readLine();            } catch (IOException e) {                System.out.println("Вы ввели неверное имя файла(, попробуйте заново");                ch = '1';                continue;            }            System.out.println("Введите имя выходного файла, например(output.txt): ");            try {                writerName = br.readLine();            } catch (IOException e) {                System.out.println("Вы ввели неверное имя файла(, попробуйте заново");                ch = '1';                continue;            }            try {                Decider decider = new Decider();                decider.makeDecision(readerName, writerName, result);            } catch (Exception e) {                System.exit(0);            }            Reader reader = new Reader(readerName);            try {                reader.read(result);            }            catch (Exception e)            {                ch = '1';                continue;            }            Finder finder = new Finder();            finder.find(result);            try {                Calculator calculator = new Calculator();                calculator.calculate(result);            } catch (Exception e) {                System.exit(0);            }            Replacer replacer = new Replacer();            replacer.replace(result);            System.out.println("Введите 1, если хотите, чтобы ваши выходные данные были зашифрованы: ");            boolean isEnc = false;            try {                String temp = br.readLine();                if (Objects.equals(temp, "1")) {                    result.setShouldEncrypt(true);                    result.setFirstEncrypt(true);                    isEnc = true;                }            } catch (IOException e) {                System.out.println("Вы ввели некорректный символ(, попробуйте заново");                ch = '1';                continue;            }            System.out.println("Введите 1, если хотите, чтобы ваши выходные данные были заарохивированы: ");            boolean isArch = false;            try {                String temp = br.readLine();                if (Objects.equals(temp, "1")) {                    result.setShouldArchive(true);                    isArch = true;                }            } catch (IOException e) {                System.out.println("Вы ввели некорректный символ(, попробуйте заново");                ch = '1';                continue;            }            if (isEnc && isArch) {                System.out.println("Введите 1, если хотите, чтобы сначала данные были заархивированы, а затем зашифрованы: ");                try {                    String temp = br.readLine();                    if (Objects.equals(temp, "1")) {                        result.setFirstEncrypt(false);                    }                } catch (IOException e) {                    System.out.println("Вы ввели некорректный символ(, попробуйте заново");                    ch = '1';                    continue;                }            }            Writer writer = new Writer(writerName);            writer.write(result);            System.out.println("Всё готово! проверьте выходной файл;)");            System.out.println("Введите 1, если хотите продолжить: ");            try            {                ch = (char) br.read();            }            catch (IOException e)            {                System.out.println("Вы ввели некорректный символ(");                System.exit(0);            }        }        while (ch == '1');    }}

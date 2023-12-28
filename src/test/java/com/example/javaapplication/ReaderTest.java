@@ -24,7 +24,7 @@ public class ReaderTest {
                 "    } ]\n" +
                 "}");
         reader.read(result);
-        assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText());
+        assertEquals(expected.replace("\n", System.lineSeparator()), result.getInputText().replace("\n", System.lineSeparator()));
     }
 
 
