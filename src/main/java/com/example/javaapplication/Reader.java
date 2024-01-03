@@ -49,7 +49,9 @@ public class Reader {
                     String jsonstring = jsonmapper.writer(printer).writeValueAsString(jsonnode);
                     result.setInputText(jsonstring);
                 } catch (IOException a) {
+                    System.out.println("Wrong File name. Try again");
                     a.printStackTrace();
+                    System.exit(0);
                 }
                 break;
             case(2):
@@ -61,15 +63,23 @@ public class Reader {
                     String xmlstring = xmlmapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonnode);
                     result.setInputText(xmlstring);
                 } catch (IOException a) {
+                    System.out.println("Wrong File name. Try again");
                     a.printStackTrace();
+                    System.exit(0);
                 }
+                break;
+            case(6):
+                break;
+            case(7):
                 break;
             default:
                 List<String> lines = null;
                 try {
                     lines = Files.readAllLines(Paths.get(fileName));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                }
+                catch (IOException e) {
+                    System.out.println("Wrong File name. Try again");
+                    System.exit(0);
                 }
                 StringBuilder content = new StringBuilder();
                 for (String line : lines) {

@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
     public static void main(String[] args) throws IOException, JAXBException {
        // launch();
 
-        String readerName = new String("input.xml");
+        String readerName = new String("input1.xml");
         String writerName = new String("output.txt");
 
         Result result = new Result();
@@ -34,11 +34,12 @@ catch(Exception e)
     System.exit(0);
 }
         Reader reader = new Reader(readerName);
-        //reader.read(result);
-        reader.readV2(result);
+        reader.read(result);
+//        reader.readV2(result);
 
         Finder finder = new Finder();
-        finder.findV2(result, readerName);
+//        finder.findV2(result, readerName);
+        finder.find(result);
 try {
     Calculator calculator = new Calculator();
     calculator.calculate(result);

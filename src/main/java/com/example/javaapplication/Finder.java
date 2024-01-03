@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 
 public class Finder {
-    private ArrayList<Duration> positionsList = new ArrayList();
+//    private ArrayList<Duration> positionsList = new ArrayList();
 
-    private ArrayList<String> samplesList = new ArrayList<>();
+//    private ArrayList<String> samplesList = new ArrayList<>();
     public Finder()
     {
 
@@ -23,10 +23,16 @@ public class Finder {
         ArrayList<String> allMatches = new ArrayList<>();
         Pattern pattern = Pattern.compile("([()-+]*?[0-9]*\\.?[0-9]+[/+\\-*^()]*)+([-+]?[0-9]*\\.?[0-9]*[()]*?)");
         Matcher matcher = pattern.matcher(parseString);
+        ArrayList<Duration> durationList = new ArrayList<>();
         while(matcher.find()) {
             allMatches.add(matcher.group());
+            Duration d = new Duration();
+            d.setFrom(matcher.start());
+            d.setTo(matcher.end());
+            durationList.add(d);
         }
         result.setSampleList(allMatches);
+        result.setPositionsList(durationList);
     }
 public void findV2(Result result, String fileName){
     String[] strings = fileName.split("\\.");
