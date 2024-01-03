@@ -1,16 +1,19 @@
 package com.example.javaapplication;
 
-import java.util.ArrayList;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
+@Setter
+@Getter
 public class Result {
     private ArrayList<Double> resultList = new ArrayList<>();
     private ArrayList<String> sampleList = new ArrayList<>();
     private ArrayList<Duration> positionsList = new ArrayList<>();
     private String inputText;
-    private ArrayList<MathExp> jsonNodes = new ArrayList<>();
-
-    private ArrayList<HelperExpression> mathExpressions = new ArrayList<>();
     private String replacedText;
+    private ArrayList<MathExp> jsonNodes = new ArrayList<>();
+    private ArrayList<HelperExpression> mathExpressions = new ArrayList<>();
     private int decision;
     private boolean shouldEncrypt;
     private boolean shouldArchive;
@@ -84,11 +87,7 @@ public class Result {
     public void setInputText(String inputText) {
         this.inputText = inputText;
     }
-    public ArrayList<MathExp> getJsonNodes() {return jsonNodes;}
 
-    public void setJsonNodes(ArrayList<MathExp> jsonNodes) {this.jsonNodes = jsonNodes;}
-    public ArrayList<HelperExpression> getMathExpressions() {return mathExpressions;}
-    public void setMathExpressions(ArrayList<HelperExpression> helperExpressions) {this.mathExpressions = helperExpressions;}
     public String getReplacedText() {
         return replacedText;
     }
@@ -107,6 +106,9 @@ public class Result {
     public Double getResultByIndex (int index) {return resultList.get(index); }
 
     public Duration getDurationByIndex (int index) {return positionsList.get(index); }
+    public ArrayList<MathExp> getJsonNodes() {return jsonNodes;}
 
-
+    public void setJsonNodes(ArrayList<MathExp> jsonNodes) {this.jsonNodes = jsonNodes;}
+    public ArrayList<HelperExpression> getMathExpressions() {return mathExpressions;}
+    public void setMathExpressions(ArrayList<HelperExpression> helperExpressions) {this.mathExpressions = helperExpressions;}
 }

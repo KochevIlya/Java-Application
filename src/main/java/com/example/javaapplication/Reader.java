@@ -13,6 +13,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,7 +51,8 @@ public class Reader {
                     String jsonstring = jsonmapper.writer(printer).writeValueAsString(jsonnode);
                     result.setInputText(jsonstring);
                 } catch (IOException a) {
-                    System.out.println("Wrong File name. Try again");
+
+                    System.out.println("Неверное имя файла, Попробуйте ещё раз!");
                     a.printStackTrace();
                     System.exit(0);
                 }
@@ -63,7 +66,9 @@ public class Reader {
                     String xmlstring = xmlmapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonnode);
                     result.setInputText(xmlstring);
                 } catch (IOException a) {
-                    System.out.println("Wrong File name. Try again");
+
+                    System.out.println("Неверное имя файла, Попробуйте ещё раз!");
+
                     a.printStackTrace();
                     System.exit(0);
                 }
@@ -78,8 +83,9 @@ public class Reader {
                     lines = Files.readAllLines(Paths.get(fileName));
                 }
                 catch (IOException e) {
-                    System.out.println("Wrong File name. Try again");
-                    System.exit(0);
+
+                    System.out.println("Неверное имя файла, Попробуйте ещё раз!");
+
                 }
                 StringBuilder content = new StringBuilder();
                 for (String line : lines) {

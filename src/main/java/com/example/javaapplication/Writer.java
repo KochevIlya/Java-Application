@@ -127,8 +127,8 @@ public class Writer {
 
         try
         {
-            FileWriter fileWriter = new FileWriter(fileName);
             int decision = result.getDecision();
+            FileWriter fileWriter;
             if(result.getDecision() <1 || result.getDecision() > 5)
                 throw new WriterException();
 
@@ -153,6 +153,7 @@ public class Writer {
                     else if(result.isShouldArchive())
                         result.setReplacedText(this.archiveDataZipAfter(result));
 
+                    fileWriter = new FileWriter(fileName);
                     fileWriter.write(result.getReplacedText());
                     fileWriter.close();
                     break;
@@ -175,7 +176,7 @@ public class Writer {
                         result.setReplacedText(this.encryptData(result));
                     else if(result.isShouldArchive())
                         result.setReplacedText(this.archiveDataZipAfter(result));
-
+                    fileWriter = new FileWriter(fileName);
                     fileWriter.write(result.getReplacedText());
                     fileWriter.close();
                     break;
@@ -192,12 +193,13 @@ public class Writer {
                         result.setReplacedText(this.archiveDataZipAfter(result));
                         result.setReplacedText(this.encryptData(result));
                     }
-                    else if(result.isShouldEncrypt())
-                        result.setReplacedText(this.encryptData(result));
-
+                    else if(result.isShouldEncrypt()) {
+                        String resStr = encryptData(result);
+                        result.setReplacedText(resStr);
+                    }
                     else if(result.isShouldArchive())
                         result.setReplacedText(this.archiveDataZipAfter(result));
-
+                    fileWriter = new FileWriter(fileName);
                     fileWriter.write(result.getReplacedText().trim());
                     fileWriter.close();
 
