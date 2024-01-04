@@ -6,6 +6,7 @@
         <types>"i""i""d""i""d""d"</types>
         <integers>"(0,0)""(1,1)""(1,3)"</integers>
         <doubles>"(1.0,2)""(0.057,4)""(-0.058,5)"</doubles>
+        <result> </result>
     </MathExpression>
     <MathExpression>
         <expression>x + y + t + p / r</expression>
@@ -13,6 +14,7 @@
         <types>"i""i""i""d""d"</types>
         <integers>"(6,0)""(1,1)""(40,2)"</integers>
         <doubles>"(1.057,3)""(-0.058,4)"</doubles>
+        <result> </result>
     </MathExpression>
     <MathExpression>
         <expression>x * y</expression>
@@ -20,5 +22,6 @@
         <types>"d""d"</types>
         <integers>""</integers>
         <doubles>"(6.0E-6,0)""(-100000.0,1)"</doubles>
+        <result> </result>
     </MathExpression>
 </Content>
