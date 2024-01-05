@@ -10,13 +10,6 @@ import java.util.regex.Pattern;
 
 
 public class Finder {
-    private ArrayList<Duration> positionsList = new ArrayList();
-
-    private ArrayList<String> samplesList = new ArrayList<>();
-    public Finder()
-    {
-
-    }
     public void find(Result result)
     {
         String parseString = result.getInputText();
@@ -42,16 +35,11 @@ public class Finder {
         switch(strings[1]){
             case("json"):
                 int size = result.getJsonNodes().size();
-                ArrayList<MathExp> mathExps = result.getJsonNodes();
-                MathExp oneMathExp;
-                ArrayList<OneMathExp> elem;
-                OneMathExp one;
+                ArrayList<OneMathExp> mathExps = result.getJsonNodes();
+
                 for(int i = 0; i < size; i++){
-                    oneMathExp = mathExps.get(i);
-                    elem = oneMathExp.getMathExps();
-                    one = elem.get(0);
-                    String expression = one.getExpression();
-                    Map<Character, Double> m = getDoubleMap(one);
+                    String expression = mathExps.get(i).getExpression();
+                    Map<Character, Double> m = getDoubleMap(mathExps.get(i));
                     StringBuilder final_str = new StringBuilder();
                     for(int j = 1; j < expression.length(); j++){
                         if(expression.charAt(j) != ' ') {

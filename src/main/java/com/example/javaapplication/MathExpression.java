@@ -1,5 +1,10 @@
 package com.example.javaapplication;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -7,73 +12,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 class MyPair
 {
-    int one;
-    int two;
-
-    public int getOne() {
-        return one;
-    }
-
-    public MyPair(int one, int two) {
-        this.one = one;
-        this.two = two;
-    }
-
-    public void setOne(int one) {
-        this.one = one;
-    }
-
-    public int getTwo() {
-        return two;
-    }
-
-    public void setTwo(int two) {
-        this.two = two;
-    }
-    public MyPair()
-    {
-        this.one = 0;
-        this.two = 0;
-    }
+    private int one;
+    private int two;
 }
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 class MyPairDouble
 {
-    double one;
-    int two;
+    private double one;
+    private int two;
 
-    public double getOne() {
-        return one;
-    }
-
-    public MyPairDouble(double one, int two) {
-        this.one = one;
-        this.two = two;
-    }
-
-    public void setOne(double one) {
-        this.one = one;
-    }
-
-    public int getTwo() {
-        return two;
-    }
-
-    public void setTwo(int two) {
-        this.two = two;
-    }
-    public MyPairDouble()
-    {
-        this.one = 0;
-        this.two = 0;
-    }
 }
-
-
 
 @XmlRootElement(name="MathExpression")
 @XmlAccessorType(XmlAccessType.FIELD)
+@Setter
+@Getter
 public class MathExpression {
     @XmlElement(name="expression")
     private String expression;
@@ -85,45 +47,6 @@ public class MathExpression {
     private  String integers;
     @XmlElement(name="doubles")
     private  String doubles;
-    public String getExpression() {
-        return expression;
-    }
-
-    public void setExpression(String expression) {
-        this.expression = expression;
-    }
-
-    public String getVariables() {
-        return variables;
-    }
-
-    public void setVariables(String variables) {
-        this.variables = variables;
-    }
-
-    public String getTypes() {
-        return types;
-    }
-
-    public void setTypes(String types) {
-        this.types = types;
-    }
-
-    public String getIntegers() {
-        return integers;
-    }
-
-    public void setIntegers(String integers) {
-        this.integers = integers;
-    }
-
-    public String getDoubles() {
-        return doubles;
-    }
-
-    public void setDoubles(String doubles) {
-        this.doubles = doubles;
-    }
     public MathExpression(){
     }
     public char[] splitVariables()
@@ -147,7 +70,6 @@ public class MathExpression {
     public ArrayList<MyPair> splitIntegers()
     {
         String newstr = integers.replaceAll("\"{1,2}", "");
-      //       (0,0)(1,1)(1,3)
         ArrayList<MyPair> myPairs = new ArrayList<>();
         Pattern p = Pattern.compile("\\((-?\\d+\\,-?\\d+)\\)");
         Matcher m = p.matcher(newstr);
@@ -162,7 +84,6 @@ public class MathExpression {
     public ArrayList<MyPairDouble> splitDoubles()
     {
         String newstr = doubles.replaceAll("\"{1,2}", "");
-    //    (1.0,2)(0.057,4)(-0.058,5)
         ArrayList<MyPairDouble> myPairs = new ArrayList<>();
         Pattern p = Pattern.compile("\\((-?[0-9eE+-]+\\.?[0-9eE+-]*,-?\\d+)\\)");
         Matcher m = p.matcher(newstr);

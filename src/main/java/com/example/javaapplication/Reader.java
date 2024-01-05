@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -23,18 +25,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@Setter
+@Getter
 public class Reader {
     private String fileName;
     private ObjectMapper objMapper;
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public Reader(String fileName)
     {
         this.fileName = fileName;
@@ -107,7 +102,11 @@ public class Reader {
                 objMapper.registerModule(module);
                 ArrayList<MathExp> math_exp = objMapper.readValue(new File(fileName), new TypeReference<ArrayList<MathExp>>() {
                 });
-                result.setJsonNodes(math_exp);
+                ArrayList<OneMathExp> oneMathExps = new ArrayList<>();
+                for (MathExp mathExp : math_exp) {
+                    oneMathExps.add(mathExp.getMathExps().get(0));
+                }
+                result.setJsonNodes(oneMathExps);
                 break;
             case("xml"):
                 // from xml using Unmarshaller(jaxb)
@@ -119,6 +118,9 @@ public class Reader {
                 for(int i = 0; i < root.getMathExpressions().size(); i++){
                     helperExpressions.add(input.get(i).createMathExpression());
                 }
+                Content content = new Content();
+                content.setMathExpressions(input);
+                result.setContent(content);
                 result.setMathExpressions(helperExpressions);
                 break;
 

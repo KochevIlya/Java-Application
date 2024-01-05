@@ -18,13 +18,6 @@ public class MathExpDeserializer extends StdDeserializer<MathExp> {
     public MathExpDeserializer() {
         this(null);
     }
-//    JsonNode integersNode = node.get("integers");
-//    ArrayList<ImmutablePair<Integer, Integer>> integers = new ArrayList<>();
-//        for (JsonNode varNode : integersNode) {
-//        String left = varNode.fieldNames().next();
-//        integers.add(new ImmutablePair<>(Integer.parseInt(left), varNode.get(left).asInt()));
-//    }
-    //@Override
     public MathExp deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         MathExp exp = new MathExp();
         ArrayList<OneMathExp> math_exp = new ArrayList<>();

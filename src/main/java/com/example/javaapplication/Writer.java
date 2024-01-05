@@ -1,14 +1,23 @@
 package com.example.javaapplication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.Serializers;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.zip.ZipEntry;
@@ -17,16 +26,45 @@ import java.util.zip.ZipOutputStream;
 class WriterException extends Throwable {
 
 }
+@Getter
 public class Writer {
+    @Setter
     private String fileName;
+    @Setter
+    private ObjectMapper objMapper;
 
-    public String getFileName() {
-        return fileName;
+    public void writeV2(Result result, String fileN) {
+        String[] strings = fileN.split("\\.");
+        switch(strings[1]) {
+            case("json"):
+                ArrayList<OneMathExp> info_from_reader = result.getJsonNodes();
+                objMapper = new ObjectMapper();
+                SimpleModule module = new SimpleModule();
+                module.addDeserializer(MathExp.class, new MathExpDeserializer());
+                objMapper.registerModule(module);
+                objMapper.enable(SerializationFeature.INDENT_OUTPUT);
+                try {
+                    objMapper.writeValue(new File(fileName), info_from_reader);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case("xml"):
+                try
+                {
+                    JAXBContext jaxbContext = JAXBContext.newInstance(Content.class);
+                    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+                    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                    File file = new File(fileName);
+                    jaxbMarshaller.marshal(result.getContent(), file);
+                }
+                catch (JAXBException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+        }
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
     public String writeToJson(Result result)
     {
         String str = "";
@@ -138,7 +176,7 @@ public class Writer {
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    result.setReplacedText(writeToJson(result));
+                    //result.setReplacedText(writeToJson(result));
 
                     if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
                         result.setReplacedText(this.encryptData(result));
@@ -162,7 +200,7 @@ public class Writer {
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    result.setReplacedText(writeToXml(result));
+                    //result.setReplacedText(writeToXml(result));
 
                     if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
                         result.setReplacedText(this.encryptData(result));
