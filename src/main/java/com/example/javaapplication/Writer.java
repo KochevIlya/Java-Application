@@ -147,6 +147,8 @@ public class Writer {
                     else if(result.isShouldEncrypt() && result.isShouldArchive()) {
                         result.setReplacedText(this.archiveDataZipAfter(result));
                         result.setReplacedText(this.encryptData(result));
+                        String[] zipFile = fileName.split("\\.");
+                        fileName = zipFile[0] + ".zip";
                     }
                     else if(result.isShouldEncrypt())
                         result.setReplacedText(this.encryptData(result));
@@ -171,6 +173,8 @@ public class Writer {
                     else if(result.isShouldEncrypt() && result.isShouldArchive()) {
                         result.setReplacedText(this.archiveDataZipAfter(result));
                         result.setReplacedText(this.encryptData(result));
+                        String[] zipFile = fileName.split("\\.");
+                        fileName = zipFile[0] + ".zip";
                     }
                     else if(result.isShouldEncrypt())
                         result.setReplacedText(this.encryptData(result));
@@ -192,6 +196,8 @@ public class Writer {
                     else if(result.isShouldEncrypt() && result.isShouldArchive()) {
                         result.setReplacedText(this.archiveDataZipAfter(result));
                         result.setReplacedText(this.encryptData(result));
+                        String[] zipFile = fileName.split("\\.");
+                        fileName = zipFile[0] + ".zip";
                     }
                     else if(result.isShouldEncrypt()) {
                         String resStr = encryptData(result);
@@ -202,7 +208,6 @@ public class Writer {
                     fileWriter = new FileWriter(fileName);
                     fileWriter.write(result.getReplacedText().trim());
                     fileWriter.close();
-
                     break;
             }
         }
