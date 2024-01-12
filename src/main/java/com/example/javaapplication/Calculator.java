@@ -11,5 +11,12 @@ public class Calculator {
     {
         iCalculator = new APICalculator();
     }
+    public Calculator(boolean isMy)
+    {
+        if(isMy)
+            iCalculator = new MyCalculator();
+        else
+            iCalculator = new APICalculator();
+    }
 
 }
