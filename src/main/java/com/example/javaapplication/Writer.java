@@ -176,7 +176,7 @@ public class Writer {
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    //result.setReplacedText(writeToJson(result));
+                    result.setReplacedText(writeToJson(result));
 
                     if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
                         result.setReplacedText(this.encryptData(result));
@@ -202,7 +202,7 @@ public class Writer {
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    //result.setReplacedText(writeToXml(result));
+                    result.setReplacedText(writeToXml(result));
 
                     if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
                         result.setReplacedText(this.encryptData(result));
