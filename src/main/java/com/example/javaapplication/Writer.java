@@ -99,6 +99,7 @@ public class Writer {
     }
     public String encryptData(Result result)
     {
+        fileName += ".enc";
         String originalString = result.getReplacedText();
         try {
             Cipher cipher = Cipher.getInstance("AES");
@@ -116,8 +117,7 @@ public class Writer {
                 encryptedBytes = cipher.doFinal(originalString.getBytes(), 0,    originalString.length());
             else
                 encryptedBytes = cipher.doFinal(Base64.getDecoder().decode(originalString));
-            String[] newFileNameChar = fileName.split("\\.");
-            fileName = newFileNameChar[0] + ".enc";
+
             return Base64.getEncoder().encodeToString(encryptedBytes);
         }
         catch (Exception e) {
@@ -127,8 +127,8 @@ public class Writer {
     }
     public String archiveDataZipAfter(Result result)
     {
-        String[] zipFile = fileName.split("\\.");
-        fileName = zipFile[0] + ".zip";
+
+        fileName += ".zip";
         String originalData = result.getReplacedText();
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -185,8 +185,6 @@ public class Writer {
                     else if(result.isShouldEncrypt() && result.isShouldArchive()) {
                         result.setReplacedText(this.archiveDataZipAfter(result));
                         result.setReplacedText(this.encryptData(result));
-                        String[] zipFile = fileName.split("\\.");
-                        fileName = zipFile[0] + ".zip";
                     }
                     else if(result.isShouldEncrypt())
                         result.setReplacedText(this.encryptData(result));
@@ -211,8 +209,6 @@ public class Writer {
                     else if(result.isShouldEncrypt() && result.isShouldArchive()) {
                         result.setReplacedText(this.archiveDataZipAfter(result));
                         result.setReplacedText(this.encryptData(result));
-                        String[] zipFile = fileName.split("\\.");
-                        fileName = zipFile[0] + ".zip";
                     }
                     else if(result.isShouldEncrypt())
                         result.setReplacedText(this.encryptData(result));
@@ -234,8 +230,6 @@ public class Writer {
                     else if(result.isShouldEncrypt() && result.isShouldArchive()) {
                         result.setReplacedText(this.archiveDataZipAfter(result));
                         result.setReplacedText(this.encryptData(result));
-                        String[] zipFile = fileName.split("\\.");
-                        fileName = zipFile[0] + ".zip";
                     }
                     else if(result.isShouldEncrypt()) {
                         String resStr = encryptData(result);
