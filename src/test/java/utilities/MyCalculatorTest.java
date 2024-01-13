@@ -14,12 +14,12 @@ class MyCalculatorTest {
     @Test
     void testCalculateWithValidExpressions() {
         Result result = new Result();
-        result.setSampleList(new ArrayList<>( Arrays.asList("2 * (3 + 4) - 5", "8 / (2 + 2) * 3 - 1", "10 * 2 - (4 + 2) / 2")));
+        result.setSampleList(new ArrayList<>( Arrays.asList("2 * (3 ^ 4) - 5", "8 / (2 + 2) * 3 - 1", "10 * 2 - (4 + 2) / 2")));
 
         Calculator calculator = new Calculator(true);
         calculator.calculate(result);
 
-        ArrayList<Double> expectedResultList = new ArrayList<>(Arrays.asList(9.0, 5.0, 17.0));
+        ArrayList<Double> expectedResultList = new ArrayList<>(Arrays.asList(157.0, 5.0, 17.0));
         assertEquals(expectedResultList, result.getResultList());
     }
 
