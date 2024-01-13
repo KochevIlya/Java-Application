@@ -45,7 +45,7 @@ public class DeciderTest {
     public void testMakeDecisionInvalidFileExtension() {
         Decider decider = new Decider();
         Result result = new Result();
-        PatternSyntaxException thrownException = assertThrows(PatternSyntaxException.class, () -> {
+        assertThrows(PatternSyntaxException.class, () -> {
             decider.makeDecision("input.txt", "output.);xml(", result);
         });
     }
@@ -53,15 +53,45 @@ public class DeciderTest {
     public void testMakeDecisionInvalidFileWithoutDot() {
         Decider decider = new Decider();
         Result result = new Result();
-        ArrayIndexOutOfBoundsException thrownException = assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+        assertThrows(PatternSyntaxException.class, () -> {
             decider.makeDecision("inpu2", "output.txt", result);
         });
     }
-    public void testMakeDecisionInvalidFileWithDot() {
+    @Test
+    public void testMakeDecisionFirstEnc()
+    {
         Decider decider = new Decider();
-        Result result = new Result();
-        ArrayIndexOutOfBoundsException thrownException = assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            decider.makeDecision("input.txt.xml", "output.txt", result);
-        });
+        assertEquals(decider.makeDecisionReader("input.txt.enc.zip"), 4);
+    }
+
+    @Test
+    public void testMakeDecisionFirstArch()
+    {
+        Decider decider = new Decider();
+        assertEquals(decider.makeDecisionReader("input.txt.zip.enc"), 5);
+    }
+    @Test
+    public void testMakeDecisionOnlyArch()
+    {
+        Decider decider = new Decider();
+        assertEquals(decider.makeDecisionReader("input.zip"), 2);
+    }
+    @Test
+    public void testMakeDecisionOnlyEnc()
+    {
+        Decider decider = new Decider();
+        assertEquals(decider.makeDecisionReader("input1234....enc"), 3);
+    }
+    @Test
+    public void testMakeDecisionNothing()
+    {
+        Decider decider = new Decider();
+        assertEquals(decider.makeDecisionReader(""), 1);
+    }
+    @Test
+    public void testMakeDecisionAbraCadabra()
+    {
+        Decider decider = new Decider();
+        assertEquals(decider.makeDecisionReader("wqrlkjh.123l;j.reqlja[d9843"), 1);
     }
 }

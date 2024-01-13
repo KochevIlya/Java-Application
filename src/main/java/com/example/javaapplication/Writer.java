@@ -99,6 +99,7 @@ public class Writer {
     }
     public String encryptData(Result result)
     {
+        fileName += ".enc";
         String originalString = result.getReplacedText();
         try {
             Cipher cipher = Cipher.getInstance("AES");
@@ -116,8 +117,7 @@ public class Writer {
                 encryptedBytes = cipher.doFinal(originalString.getBytes(), 0,    originalString.length());
             else
                 encryptedBytes = cipher.doFinal(Base64.getDecoder().decode(originalString));
-            String[] newFileNameChar = fileName.split("\\.");
-            fileName = newFileNameChar[0] + ".enc";
+
             return Base64.getEncoder().encodeToString(encryptedBytes);
         }
         catch (Exception e) {
@@ -127,8 +127,8 @@ public class Writer {
     }
     public String archiveDataZipAfter(Result result)
     {
-        String[] zipFile = fileName.split("\\.");
-        fileName = zipFile[0] + ".zip";
+
+        fileName += ".zip";
         String originalData = result.getReplacedText();
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -176,7 +176,7 @@ public class Writer {
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    //result.setReplacedText(writeToJson(result));
+                    result.setReplacedText(writeToJson(result));
 
                     if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
                         result.setReplacedText(this.encryptData(result));
@@ -200,7 +200,7 @@ public class Writer {
                     if(result.getSampleList() == null || result.getResultList() == null || result.getInputText() == null)
                         throw new WriterException();
 
-                    //result.setReplacedText(writeToXml(result));
+                    result.setReplacedText(writeToXml(result));
 
                     if(result.isShouldEncrypt() && result.isShouldArchive() && result.isFirstEncrypt()) {
                         result.setReplacedText(this.encryptData(result));
@@ -240,7 +240,6 @@ public class Writer {
                     fileWriter = new FileWriter(fileName);
                     fileWriter.write(result.getReplacedText().trim());
                     fileWriter.close();
-
                     break;
             }
         }

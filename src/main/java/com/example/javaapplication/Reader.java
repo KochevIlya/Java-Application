@@ -34,28 +34,6 @@ public class Reader {
     {
         this.fileName = fileName;
     }
-    // костыль хихи хаха, надо было вовремя дисайдер переписать
-    public void division(Result result) {
-        String[] leks = fileName.split("\\.");
-        if(leks.length == 2) {
-            result.setEncrypted(false);
-            result.setArchived(false);
-        }
-        else if(leks.length == 3) {
-            if(leks[2].equals("enc")) {
-                result.setEncrypted(true);
-                result.setArchived(false);
-            }
-            if(leks[2].equals("zip")) {
-                result.setEncrypted(false);
-                result.setArchived(true);
-            }
-        }
-        else if(leks.length == 4){
-            result.setEncrypted(true);
-            result.setArchived(true);
-        }
-    }
     public void read(Result result)
     {
         switch (result.getDecision()) {
