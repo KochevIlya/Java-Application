@@ -20,6 +20,8 @@ public class Result {
 
     private int decision;
 
+    private boolean isEncrypted;
+    private boolean isArchived;
     private boolean shouldEncrypt;
     private boolean shouldArchive;
 

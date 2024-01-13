@@ -6,7 +6,7 @@ import java.util.regex.PatternSyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class   DeciderTest {
+public class DeciderTest {
 
     @Test
     public void testMakeDecisionTxtToTxt() {
