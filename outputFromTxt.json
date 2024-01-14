@@ -1,0 +1,7 @@
+{
+    "example" : "4 + 5",
+    "result" : "9.0",
+    "example" : "4 - 3",
+    "result" : "1.0",
+    "allText" : "Hello it is just a simple text with samples 4 + 5, 4 - 3"
+}

@@ -1,8 +1,4 @@
-package com.example.javaapplication.resources;
-
-import com.example.javaapplication.*;
-
-import javax.xml.bind.JAXBException;
+package com.example.javaapplication;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +9,6 @@ public class CLI {
         char ch = 0;
         do {
             {
-
                 InputStreamReader isr = new InputStreamReader(System.in);
                 BufferedReader br = new BufferedReader(isr);
                 System.out.println("Выберите версию программы в соотвествии с форматом входных файлов\n Введите 2, если задан конкретный формат входных данных в файле\n Введите 1 иначе : ");

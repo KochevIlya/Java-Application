@@ -1,7 +1,5 @@
 package com.example.javaapplication;
 
-import com.example.javaapplication.Reader;
-import com.example.javaapplication.Result;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
