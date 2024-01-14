@@ -8,6 +8,8 @@ module com.example.javaapplication {
     requires exp4j;
     requires java.xml.bind;
     requires lombok;
+    requires spring.boot.autoconfigure;
+    requires spring.boot;
 
     opens com.example.javaapplication to javafx.fxml, java.xml.bind;
     exports com.example.javaapplication;
