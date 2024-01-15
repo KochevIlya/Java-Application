@@ -1,2 +1,5 @@
-It it just simple text
-without any difficulties
+<person>
+    <name>Bob</name>
+    <age>3.0/age>
+    <job>Software Engineer</job>
+</person>

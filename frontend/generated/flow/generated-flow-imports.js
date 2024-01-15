@@ -1,5 +1,5 @@
 import '@vaadin/polymer-legacy-adapter/style-modules.js';
-import '@vaadin/vertical-layout/src/vaadin-vertical-layout.js';
+import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 import '@vaadin/common-frontend/ConnectionIndicator.js';
 import '@vaadin/accordion/src/vaadin-accordion.js';
 import '@vaadin/details/src/vaadin-details.js';
@@ -50,8 +50,8 @@ import '@vaadin/message-input/src/vaadin-message-input.js';
 import 'Frontend/generated/jar-resources/messageListConnector.js';
 import '@vaadin/message-list/src/vaadin-message-list.js';
 import '@vaadin/notification/src/vaadin-notification.js';
-import '@vaadin/horizontal-layout/src/vaadin-horizontal-layout.js';
 import '@vaadin/scroller/src/vaadin-scroller.js';
+import '@vaadin/vertical-layout/src/vaadin-vertical-layout.js';
 import '@vaadin/progress-bar/src/vaadin-progress-bar.js';
 import '@vaadin/radio-group/src/vaadin-radio-button.js';
 import '@vaadin/radio-group/src/vaadin-radio-group.js';
