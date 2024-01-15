@@ -1,4 +1,5 @@
 package com.example.javaapplication;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -56,13 +57,20 @@ public class Reader {
                     xmlmapper.enable(ToXmlGenerator.Feature.UNWRAP_ROOT_OBJECT_NODE);
                     String xmlstring = xmlmapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonnode);
                     result.setInputText(xmlstring);
-                } catch (IOException a) {
+                }
+                catch(JsonGenerationException e)
+                {
+                    System.out.println("Невозможно преобразовать данный файл в xml(");
+                    System.exit(0);
+                }
+                catch (IOException a) {
 
                     System.out.println("Неверное имя файла, Попробуйте ещё раз!");
 
                     a.printStackTrace();
                     System.exit(0);
                 }
+
                 break;
             case(6):
                 break;

@@ -44,7 +44,8 @@ public class CLI {
                     Decider decider = new Decider();
                     decider.makeDecision(readerName, writerName, result);
                 } catch (Exception e) {
-                    System.exit(0);
+                    ch = '1';
+                    continue;
                 }
                 Reader reader = new Reader(readerName);
                 try {

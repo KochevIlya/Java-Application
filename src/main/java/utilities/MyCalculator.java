@@ -14,7 +14,7 @@ public class MyCalculator implements ICalculator {
             String expression = result.getSampleList().get(i);
             expression = expression.replaceAll("\\s+", "");
 
-            String regex = "([\\d.]+)|([()+-/*^])";
+            String regex = "([\\d.]+)|(\\(-\\d(\\.\\d+)?\\))|([()+-/*^])";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(expression);
             MyStack<Double> numbers = new MyStack<>();
@@ -25,7 +25,13 @@ public class MyCalculator implements ICalculator {
                 if (token.matches("[\\d.]+")) {
                     numbers.push(Double.parseDouble(token));
 
-                } else if (token.matches("[()+-/^*]")) {
+                } else if (token.matches("\\(-\\d(\\.\\d+)?\\)")){
+                    String str = "";
+                    for(int j = 1; j < token.length()-1; j++)
+                        str += token.charAt(j);
+                    numbers.push(Double.parseDouble(str));
+            }
+                else if (token.matches("[()+-/^*]")) {
                     processOperator(token.charAt(0), numbers, operators);
                 }
             }
