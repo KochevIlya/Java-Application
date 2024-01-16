@@ -1,24 +1,22 @@
 package com.example.javaapplication;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.Serializers;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.JSONObject;
+import org.json.XML;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -33,35 +31,40 @@ public class Writer {
     @Setter
     private ObjectMapper objMapper;
 
-    public void writeV2(Result result, String fileN) {
-        String[] strings = fileN.split("\\.");
-        switch(strings[1]) {
-            case("json"):
-                ArrayList<OneMathExp> info_from_reader = result.getJsonNodes();
-                objMapper = new ObjectMapper();
-                SimpleModule module = new SimpleModule();
-                module.addDeserializer(MathExp.class, new MathExpDeserializer());
-                objMapper.registerModule(module);
-                objMapper.enable(SerializationFeature.INDENT_OUTPUT);
-                try {
-                    objMapper.writeValue(new File(fileName), info_from_reader);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-            case("xml"):
-                try
-                {
-                    JAXBContext jaxbContext = JAXBContext.newInstance(Content.class);
-                    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-                    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                    File file = new File(fileName);
-                    jaxbMarshaller.marshal(result.getContent(), file);
-                }
-                catch (JAXBException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
+    public void writeV2(Result result, String fileN) throws JAXBException, JsonProcessingException {
+        String[] input = fileN.split("\\.");
+        String[] output = fileName.split("\\.");
+
+        if(input[1].equals("json") && output[1].equals("xml")) {
+
+            String jsonString = "{\n" +
+                    "  \"Content\":" + result.getBuffer() + "\n" +
+                    "}";
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            XmlMapper xmlMapper = new XmlMapper();
+            xmlMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+            xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true);
+            xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_1_1, true);
+
+            String xmlString = xmlMapper.writer().withRootName("root").writeValueAsString(jsonNode);
+            result.setBuffer(xmlString);
+        }
+
+        if(input[1].equals("xml") && output[1].equals("json")) {
+
+            JSONObject json = XML.toJSONObject(result.getBuffer());
+            result.setBuffer(json.toString(4). replaceAll("\\\\", ""));
+
+        }
+
+        if(input[1].equals("txt") && output[1].equals("json")) {
+            result.setBuffer(writeToJson(result));
+        }
+
+        if(input[1].equals("txt") && output[1].equals("xml")) {
+            result.setBuffer(writeToXml(result));
         }
     }
 

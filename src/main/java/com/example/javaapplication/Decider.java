@@ -6,15 +6,15 @@ public class Decider {
 
     public int makeDecisionReader(String inputName)
     {
-        if(!inputName.contains(".zip") && !inputName.contains(".enc"))
+        if(!inputName.contains(".zip") && !inputName.contains(".enc")) // 1 - ниче не делаем
             return 1;
-        if(inputName.contains(".zip") && !inputName.contains(".enc"))
+        if(inputName.contains(".zip") && !inputName.contains(".enc")) // 2 - разархивация
             return 2;
-        if(inputName.contains(".enc") && ! inputName.contains(".zip"))
+        if(inputName.contains(".enc") && ! inputName.contains(".zip")) // 3 - расшифровка
             return 3;
-        if(inputName.endsWith(".zip"))
+        if(inputName.endsWith(".zip")) // 4 - разархивация -> расшифровка
             return 4;
-        if(inputName.endsWith(".enc"))
+        if(inputName.endsWith(".enc")) // 5 - расшифровка -> разархивация
             return 5;
         return 0;
     }

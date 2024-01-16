@@ -12,6 +12,7 @@ public class Result {
     private ArrayList<Duration> positionsList = new ArrayList<>();
     private String inputText;
     private String replacedText;
+    private String buffer;
     private ArrayList<OneMathExp> jsonNodes = new ArrayList<>();
     private ArrayList<HelperExpression> mathExpressions = new ArrayList<>();
     private Content content;

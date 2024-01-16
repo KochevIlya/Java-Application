@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -62,6 +61,7 @@ public class Replacer {
                 try {
                     objMapper.writeValue(sw, oneMathExps);
                     result.setReplacedText(sw.toString());
+                    result.setBuffer(sw.toString());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -82,7 +82,10 @@ public class Replacer {
                 StringWriter swr = new StringWriter();
                 jaxbMarshaller.marshal(result.getContent(), swr);
                 result.setReplacedText(swr.toString());
+                result.setBuffer(swr.toString());
                 break;
+            default:
+                replace(result);
         }
     }
 

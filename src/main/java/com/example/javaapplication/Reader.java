@@ -1,4 +1,5 @@
 package com.example.javaapplication;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -15,15 +16,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Setter
 @Getter
@@ -123,6 +120,23 @@ public class Reader {
                 result.setContent(content);
                 result.setMathExpressions(helperExpressions);
                 break;
+            default:
+                List<String> lines = null;
+                try {
+                    lines = Files.readAllLines(Paths.get(fileName));
+                }
+                catch (IOException e) {
+
+                    System.out.println("Неверное имя файла, Попробуйте ещё раз!");
+
+                }
+                StringBuilder stringBuilder = new StringBuilder();
+                for (String line : lines) {
+                    stringBuilder.append(line).append(System.lineSeparator());
+                }
+                result.setInputText(stringBuilder.toString());
+                break;
+
 
         }
     }
