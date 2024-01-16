@@ -1,0 +1,7 @@
+<root>
+    <example>4 + 5</example>
+        <result>9.0</result>
+    <example>4 - 3</example>
+        <result>1.0</result>
+    <allText>Hello it is just a simple text with samples 4 + 5, 4 - 3</allText>
+</root>

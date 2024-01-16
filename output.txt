@@ -1,0 +1,5 @@
+<person>
+    <name>Bob</name>
+    <age>3.0/age>
+    <job>Software Engineer</job>
+</person>

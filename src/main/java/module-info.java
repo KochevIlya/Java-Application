@@ -12,12 +12,18 @@ module com.example.javaapplication {
     requires flow.server;
     requires vaadin.ordered.layout.flow;
     requires vaadin.button.flow;
-    requires org.eclipse.persistence.moxy;
     requires org.json;
     requires vaadin.spring;
     requires spring.boot;
     requires spring.boot.autoconfigure;
     requires spring.context;
+    requires vaadin.upload.flow;
+    requires vaadin.combo.box.flow;
+    requires vaadin.notification.flow;
+    requires com.sun.jna.platform;
+    requires vaadin.checkbox.flow;
+    requires vaadin.dialog.flow;
+    requires vaadin.text.field.flow;
 
     opens com.example.javaapplication to javafx.fxml, java.xml.bind;
     exports com.example.javaapplication;

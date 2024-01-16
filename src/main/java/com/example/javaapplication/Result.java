@@ -1,5 +1,9 @@
 package com.example.javaapplication;
 
+import com.example.javaapplication.Content;
+import com.example.javaapplication.Duration;
+import com.example.javaapplication.HelperExpression;
+import com.example.javaapplication.OneMathExp;
 import lombok.Getter;
 import lombok.Setter;
 
